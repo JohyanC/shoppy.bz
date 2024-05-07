@@ -45,6 +45,17 @@
     
 }
 
+.header_optionBasket {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.header_basketCount {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .header_nav {
     display: flex;
     justify-content: space;
