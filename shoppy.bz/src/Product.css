@@ -9,22 +9,22 @@
     max-height: 400px;
     min-width: 100px;
     background-color: white;
-    z-index: -1;
+    z-index: 1;
 }
 
-.product > img {
+.product image {
     max-height: 200px;
     width: 100%;
     object-fit: contain;
     margin-bottom: 15px;
 }
 
-.product >button {
+.product button {
     background-color: firebrick;
     border: 1px solid;
     margin-top: 10px;
-    border-color: brown #9c7e31 #846a29;
-    color: #111;
+    border-color: darkred #9c7e31 #846a29;
+    color: aliceblue;
 }
 
 .product__price {
@@ -34,4 +34,10 @@
 .product__info {
     height: 100%;
     margin-bottom: 15px;
+}
+
+.product__rating {
+    display: flex;
+    margin-bottom: 5px;
+    font-size: small;
 }

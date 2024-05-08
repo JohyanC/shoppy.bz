@@ -3,19 +3,20 @@ import './Header.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Icon from '@mui/material/Icon';
+import logo from './logo.png';
 
 function Header() {
   return (
     <div className='header'>
-        <img classname="header_logo"
-        src="E:\source\repos\shoppy.bz\shoppy.bz\src\temp-logo.png"
+        <img classname='header_logo'
+        src={logo}
         alt='shoppy logo'
         />
 
       <div className='header_search'>
         <input className='header_searchInput'
         type='text' />
-        {/*<SearchIcon className='header_searchIcon'/>*/}
+        <SearchIcon className='header_searchIcon'/>
       </div>
 
       <div className='header_nav'>
@@ -35,7 +36,7 @@ function Header() {
         </div>
 
         <div className='header_optionBasket'>
-          {/*<svg>ShoppingCartIcon</svg>*/}
+          <ShoppingCartIcon/>
           <span className='header_optionLineTwo header_basketCount'>0</span>
         </div>
 

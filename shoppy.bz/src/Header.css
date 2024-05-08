@@ -32,7 +32,8 @@
 .header_searchIcon {
     padding: 5px;
     height: 22px !important;
-    background-color: crimson;
+    background-color: firebrick;
+    color: aliceblue;
 }
 
 .header_optionLineOne {
