@@ -1,15 +1,18 @@
 import React from 'react'
 import {Currency} from 'react-tender';
 import './Subtotal.css'
+import { useStateValue } from './StateProvider';
+import { getBasketTotal } from './reducer';
 
 function Subtotal() {
+  const [{basket}, dispatch] = useStateValue();
+
   return (
     <div className='subtotal'>
-        <p>Subtotal (1 item) 
+        <p>Subtotal ({basket?.length} items) 
           <br/><strong>
-          <Currency
-            
-            value={1000}
+          <Currency            
+            value={getBasketTotal(basket)}
             currency='BZD'
             locale='en-BZ'
           /> </strong>
