@@ -6,6 +6,8 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 .header_logo {
@@ -28,6 +30,8 @@
     border: none;
     width: 100%;
     margin-left: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .header_searchIcon {
@@ -35,6 +39,8 @@
     height: 22px !important;
     background-color: firebrick;
     color: aliceblue;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .header_optionLineOne {
@@ -51,11 +57,13 @@
     display: flex;
     align-items: center;
     color: white;
+    margin-top: 3px;
 }
 
 .header_basketCount {
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 2px;
 }
 
 .header_nav {
@@ -69,4 +77,8 @@
     margin-left: 10px;
     margin-right: 10px;
     color: white;
+}
+
+.text-link {
+    text-decoration: none !important;
 }
