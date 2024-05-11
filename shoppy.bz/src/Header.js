@@ -26,23 +26,28 @@ function Header() {
       </div>
 
       <div className='header_nav'>
-        <div className='header_option'>
-            <span className='header_optionLineOne'>Hello Guest</span>
-            <span className='header_optionLineTwo'>Sign In</span>
-        </div>
-        
-        <div className='header_option'>
+        <Link to='/Login' className='text-link'>
+          <div className='header_option'>
+              <span className='header_optionLineOne'>Hello Guest</span>
+              <span className='header_optionLineTwo'>Sign In</span>
+          </div>
+        </Link>
+      <Link className='text-link'>
+         <div className='header_option'>
             <span className='header_optionLineOne'>Returns</span>
             <span className='header_optionLineTwo'>& Orders</span>
         </div>
+      </Link>
         
-        <div className='header_option'>
-            <span className='header_optionLineOne'>Your</span>
-            <span className='header_optionLineTwo'>Cart</span>
-        </div>
+        
 
         <Link to='/checkout' className='text-link'>
-          <div className='header_optionBasket'>
+          <div className='header_optionBasket'>            
+            <div className='header_option'>
+                <span className='header_optionLineOne'>Your</span>
+                <span className='header_optionLineTwo'>Cart</span>
+            </div>
+            
             <ShoppingCartIcon/>
             <span className='header_optionLineTwo header_basketCount'>
               {basket?.length}</span>
