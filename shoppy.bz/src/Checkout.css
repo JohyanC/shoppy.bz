@@ -24,3 +24,6 @@
 .checkout__left {
     width: 85%;
 }
+.checkout__right {    
+    /*position: sticky;*/
+}

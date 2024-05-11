@@ -6,10 +6,6 @@ export const initialState = {
 export const getBasketTotal = (basket) =>
     basket?.reduce((amount, item) => item.price + amount, 0);
 
-//Selector basketInfo
-export const getbasketInfo = (basket) =>
-    basket?.item;
-
 const reducer=(state, action) => {
     console.log(action);
     switch(action.type) {
@@ -17,6 +13,27 @@ const reducer=(state, action) => {
             return {
                 ...state,
                 basket: [...state.basket, action.item],
+            };
+
+        case 'REMOVE_FROM_CART':
+            const index = state.basket.findIndex(
+                (basketItem) => basketItem.id === action.id
+            );
+            let newBasket = [...state.basket];
+
+            if (index >= 0) {
+                newBasket.splice(index, 1);
+
+            // eslint-disable-next-line no-lone-blocks
+            } /*else {
+                console.warn(
+                    'Cant remove the product (id: ${action.id}) as its not in the cart'
+                )
+            }*/
+            
+            return {
+                ...state,
+                basket: newBasket
             };
 
         default:
