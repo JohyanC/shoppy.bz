@@ -2,7 +2,7 @@ import React from 'react'
 import './Header.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import logo from './logo.png';
+import logo from './logoSmall.jpeg';
 import { Link } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 
@@ -26,7 +26,11 @@ function Header() {
       </div>
 
       <div className='header_nav'>
+<<<<<<< HEAD
         <Link to='/login' className='text-link'>
+=======
+        <Link to='login' className='text-link'>
+>>>>>>> ae56508c76e4e48a0e93a3a4a6786e5d7763dffc
           <div className='header_option'>
               <span className='header_optionLineOne'>Hello Guest</span>
               <span className='header_optionLineTwo'>Sign In</span>
@@ -39,6 +43,10 @@ function Header() {
         </div>
       </Link>
         
+<<<<<<< HEAD
+        <Link to='checkout' className='text-link'>
+          <div className='header_optionBasket'>            
+=======
         
 
         <Link to='checkout' className='text-link'>
