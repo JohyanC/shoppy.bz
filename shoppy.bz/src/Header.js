@@ -26,7 +26,7 @@ function Header() {
       </div>
 
       <div className='header_nav'>
-        <Link to='/Login' className='text-link'>
+        <Link to='/login' className='text-link'>
           <div className='header_option'>
               <span className='header_optionLineOne'>Hello Guest</span>
               <span className='header_optionLineTwo'>Sign In</span>
@@ -41,7 +41,7 @@ function Header() {
         
         
 
-        <Link to='/checkout' className='text-link'>
+        <Link to='checkout' className='text-link'>
           <div className='header_optionBasket'>            
             <div className='header_option'>
                 <span className='header_optionLineOne'>Your</span>

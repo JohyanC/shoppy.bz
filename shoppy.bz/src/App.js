@@ -11,28 +11,44 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom
 function App() {
   return (
     // BEM
-    <Router>
-      <Routes>
-          <Route path="/login" element={Login}/>
-      </Routes>
-      <Header/> 
+    <Router future={{v7_startTransition:true}}>
       <div className="app">
-        <Routes>          
-          <Route path="/" element={<Header/><Outlet/><Footer/>}>
+        <Routes element={<><Header /><Footer /></>}>          
+          <Route path="/" element={<Home/>}>
+            <Route index element={<Home/>}/>  
+            <Route path="*" element={<NoMatch />}/>
+            <Route path="checkout" element={Checkout}/>
+            <Route path="login" element={Login}/>    
 
-          </Route>
-          
-          
-          <Route path="*" element={<NoMatch />} />
-          <Route index element={<Home/>}/>
-          <Route path="checkout" element={Checkout}/>
+          </Route>            
           
         </Routes>        
       </div>
-      <Footer/>
     </Router>
     
   );
 }
 
 export default App;
+
+/*
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />} loader={rootLoader} action={rootAction} errorElement={<ErrorPage />}>
+      <Route errorElement={<ErrorPage />}>
+        <Route index element={<Index />} />
+        <Route path="contacts/:contactId" element={<Contact />}loader={contactLoader}action={contactAction}/>
+        <Route path="contacts/:contactId/edit"
+          element={<EditContact />}
+          loader={contactLoader}
+          action={editAction}
+        />
+        <Route
+          path="contacts/:contactId/destroy"
+          action={destroyAction}
+        />
+      </Route>
+    </Route>
+  )
+);
+*/
