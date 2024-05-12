@@ -13,16 +13,16 @@ function App() {
     // BEM
     <Router future={{v7_startTransition:true}}>
       <div className="app">
-        <Routes element={<><Header /><Footer /></>}>          
-          <Route path="/" element={<Home/>}>
-            <Route index element={<Home/>}/>  
-            <Route path="*" element={<NoMatch />}/>
-            <Route path="checkout" element={Checkout}/>
-            <Route path="login" element={Login}/>    
-
-          </Route>            
-          
-        </Routes>        
+        <Routes >  
+          <Route element={<><Header /><Outlet/><Footer /></>}> 
+            <Route index element={<Home/>}/>
+            <Route path="checkout" element={<Checkout/>}/>
+          </Route>
+          <Route>
+          </Route>
+          <Route path="login" element={<Login/>}/> 
+          <Route path="*" element={<NoMatch />}/> 
+        </Routes> 
       </div>
     </Router>
     
