@@ -3,9 +3,11 @@ import {Currency} from 'react-tender';
 import './Subtotal.css'
 import { useStateValue } from './StateProvider';
 import { getBasketTotal } from './reducer';
+import { useNavigate } from 'react-router-dom';
 
 function Subtotal() {
   const [{basket}, dispatch] = useStateValue();
+  const naviagte = useNavigate();
 
   return (
     <div className='subtotal'>
@@ -18,7 +20,7 @@ function Subtotal() {
           /> </strong>
         </p>
         
-        <button>Proceed to checkout</button>
+        <button onClick={e => naviagte('payment')}>Proceed to checkout</button>
     </div>
   )
 }

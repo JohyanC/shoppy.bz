@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Login.css'
 import logo from './logo.jpeg'
-import { Link, Redirect } from 'react-router-dom'
+import { Link, useNavigate  } from 'react-router-dom'
 import { app, auth } from './firebase'
 import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
 
@@ -9,6 +9,7 @@ import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmail
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const signIn = e => (
     e.preventDefault(),
@@ -20,7 +21,7 @@ function Login() {
       const user = userCredential.user;
       console.log(user);
       if (user) {
-        window.location.href='/';
+        navigate('/');
       }
       // ...
     })

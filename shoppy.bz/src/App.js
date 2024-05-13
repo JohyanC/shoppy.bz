@@ -6,6 +6,8 @@ import Home from './Home';
 import Checkout from "./Checkout";
 import Login from './Login';
 import NoMatch from './404';
+import Payment from "./Payment";
+import Orders from "./Orders";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
@@ -43,6 +45,8 @@ function App() {
           <Route element={<><Header /><Outlet/><Footer /></>}> 
             <Route index element={<Home/>}/>
             <Route path="checkout" element={<Checkout/>}/>
+            <Route path="/checkout/payment" element={<Payment/>}/>
+            <Route path='orders' element={<Orders/>}/>
           </Route>
           <Route>
           </Route>

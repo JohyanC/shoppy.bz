@@ -1,10 +1,11 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 // Add the Firebase products that you want to use
-var firestore = require("firebase/firestore");
+require("firebase/firestore");
 var firebaseui = require('firebaseui')
 require('firebase/auth');
 
@@ -21,13 +22,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
 // Initialize the FirebaseUI Widget using Firebase.
 
 
-export { auth, app };
+export { auth, app, db };
 
 
 
