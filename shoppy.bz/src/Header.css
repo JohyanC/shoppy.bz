@@ -9,16 +9,14 @@
 }
 
 .header img {
-    width: 100%;
-    max-height: 55px;
+    margin-top: 20px;
+    margin-bottom: 15px;
     object-fit: contain;
-    margin: 2px;
-    padding: 2px;
+    width: 110px;
+    margin-left: 10px;
+    margin-right: auto;
 }
 
-.header_logo {
-    max-width: 200px;
-}
 
 .header_search {
     display: flex;

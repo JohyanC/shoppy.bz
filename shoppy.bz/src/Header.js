@@ -12,7 +12,7 @@ function Header() {
   return (
     <div className='header'>
       <Link to='/'>
-        <img classname='header_logo'
+        <img classname='header__logo'
           src={logo}
           alt='shoppy logo'
         />
