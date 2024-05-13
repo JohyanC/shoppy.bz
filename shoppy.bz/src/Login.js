@@ -1,21 +1,64 @@
 import React, { useState } from 'react'
 import './Login.css'
 import logo from './logo.jpeg'
-import { Link } from 'react-router-dom'
-import { auth } from './firebase'
+import { Link, Redirect } from 'react-router-dom'
+import { app, auth } from './firebase'
+import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const signIn = e => (
-    e.preventDefault()
+    e.preventDefault(),
     //Firebase implementation
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      if (user) {
+        window.location.href='/';
+      }
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    })
   );
 
+  
   const register = e => (
     e.preventDefault(),
-    alert(email, password),
     //Firebase implementation
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up 
+      const user = userCredential.user;
+        if (user) {
+          window.location.href='/';
+        }
+        else {
+          alert('email already used')
+        }
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      })
+  );
+
+
+      
+    
+
+
    {/*} auth
     .createUserWithEmailAndPassword(email, password)
     .then((auth) => {
@@ -25,8 +68,18 @@ function Login() {
         history.pushState('/')}
       })
     .catch(error => alert(error.message))
+
+    
+  const fui {
+    ui.start('#firebaseui-auth-container', {
+      signInOptions: [
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+      ],
+      // Other config options...
+    });
+  }
     */}
-  )
+
 
   return (
     <div className='login'>
