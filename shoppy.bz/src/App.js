@@ -1,16 +1,16 @@
 import react, { useEffect } from "react";
 import './App.css';
-import Header from './Header';
-import Footer from "./Footer";
-import Home from './Home';
-import Checkout from "./Checkout";
-import Login from './Login';
-import NoMatch from './404';
-import Payment from "./Payment";
-import Orders from "./Orders";
+import Header from './components/Header';
+import Footer from "./components/Footer";
+import Home from './components/Home';
+import Checkout from "./components/Checkout";
+import Login from './components/Login';
+import NoMatch from './components/404';
+import Payment from "./components/Payment";
+import Orders from "./components/Orders";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom"
-import { auth } from "./firebase";
-import { useStateValue } from "./StateProvider";
+import { auth } from "./components/firebase";
+import { useStateValue } from "./components/StateProvider";
 
 function App() {
   const [{},dispatch] = useStateValue();
