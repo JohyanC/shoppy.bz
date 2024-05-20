@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 
 function Footer() {
-    const [{basket}, dispatch] = useStateValue();
+    const [{cart}, dispatch] = useStateValue();
 
   return (
     <div className='footer'>

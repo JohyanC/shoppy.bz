@@ -2,19 +2,19 @@ import React from 'react'
 import {Currency} from 'react-tender';
 import './Subtotal.css'
 import { useStateValue } from './StateProvider';
-import { getBasketTotal } from './reducer';
+import { getcartTotal } from './reducer';
 import { useNavigate } from 'react-router-dom';
 
 function Subtotal() {
-  const [{basket}, dispatch] = useStateValue();
+  const [{cart}, dispatch] = useStateValue();
   const naviagte = useNavigate();
 
   return (
     <div className='subtotal'>
-        <p>Subtotal ({basket?.length} items) 
+        <p>Subtotal ({cart?.length} items) 
           <br/><strong>
           <Currency            
-            value={getBasketTotal(basket)}
+            value={getcartTotal(cart)}
             currency='BZD'
             locale='en-BZ'
           /> </strong>

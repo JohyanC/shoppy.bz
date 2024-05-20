@@ -42,24 +42,24 @@
     border-bottom-right-radius: 5px;
 }
 
-.header_optionLineOne {
+.header__optionLineOne {
     font-size: 10px;
 
 }
-.header_optionLineTwo {
+.header__optionLineTwo {
     font-size: 13px;
     font-weight: 800;
     
 }
 
-.header_optionBasket {
+.header__optioncart {
     display: flex;
     align-items: center;
     color: white;
     margin-top: 3px;
 }
 
-.header_basketCount {
+.header__cartCount {
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 2px;
@@ -70,7 +70,7 @@
     justify-content: space;
 }
 
-.header_option {
+.header__option {
     display: flex;
     flex-direction: column;
     margin-left: 10px;

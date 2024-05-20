@@ -5,11 +5,11 @@ import CheckoutProduct from './CheckoutProduct'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { db } from './firebase'
-import { getBasketTotal } from './reducer'
+import { getcartTotal } from './reducer'
 import { collection, setDoc, Timestamp } from 'firebase/firestore'
 
 function Payment() {
-    const [{basket, user}, dispatch] = useStateValue();
+    const [{cart, user}, dispatch] = useStateValue();
     const navigate = useNavigate();
     var currentdate = new Date(); 
 
@@ -30,8 +30,8 @@ function Payment() {
             await setDoc(collection(db, 'users', 'orders'), {
                 pid: 'ENTER PAYMENT ID HERE',
                 cart: ({
-                    basket:basket,
-                    amount: getBasketTotal(basket),
+                    cart:cart,
+                    amount: getcartTotal(cart),
                     created: Timestamp.fromDate(new Date())
 
                 })
@@ -47,8 +47,8 @@ function Payment() {
             .collection('orders')
             .doc('ENTER PAYMENT ID HERE')
             .set ({
-                basket:basket,
-                amount: getBasketTotal(basket),
+                cart:cart,
+                amount: getcartTotal(cart),
                 created: Timestamp.fromDate(new Date())
             })*/
 
@@ -64,7 +64,7 @@ function Payment() {
     <div className='payment'>
         <div className='payment__container'>
             <h1>
-                Checkout (<Link className='text-link' to='/checkout'>{basket?.length} items</Link>)
+                Checkout (<Link className='text-link' to='/checkout'>{cart?.length} items</Link>)
             </h1>
             <div className='payment__section'>
                 <div className='payment__title'>
@@ -80,7 +80,7 @@ function Payment() {
                     <h3>Review items and delivery</h3>
                 </div>
                 <div className='payment__items'>
-                    {basket.map(item => (
+                    {cart.map(item => (
                         <CheckoutProduct
                         id={item.id}
                         title={item.title}

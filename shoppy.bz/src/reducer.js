@@ -1,11 +1,11 @@
 export const initialState = {
-    basket: [],
+    cart: [],
     user: null
 };
 
-//Selector basketTotal
-export const getBasketTotal = (basket) =>
-    basket?.reduce((amount, item) => item.price + amount, 0);
+//Selector cartTotal
+export const getcartTotal = (cart) =>
+    cart?.reduce((amount, item) => item.price + amount, 0);
 
 const reducer=(state, action) => {
     console.log(action);
@@ -13,23 +13,23 @@ const reducer=(state, action) => {
         case 'ADD_TO_CART':
             return {
                 ...state,
-                basket: [...state.basket, action.item],
+                cart: [...state.cart, action.item],
             };
         
         case 'EMPTY_CART':
             return {
                 ...state, 
-                basket: []
+                cart: []
             };
 
         case 'REMOVE_FROM_CART':
-            const index = state.basket.findIndex(
-                (basketItem) => basketItem.id === action.id
+            const index = state.cart.findIndex(
+                (cartItem) => cartItem.id === action.id
             );
-            let newBasket = [...state.basket];
+            let newcart = [...state.cart];
 
             if (index >= 0) {
-                newBasket.splice(index, 1);
+                newcart.splice(index, 1);
 
             // eslint-disable-next-line no-lone-blocks
             } /*else {
@@ -40,7 +40,7 @@ const reducer=(state, action) => {
             
             return {
                 ...state,
-                basket: newBasket
+                cart: newcart
             };
         
         case 'SET_USER':

@@ -34,6 +34,7 @@ function Home() {
                 image={logo} 
                 rating={4}
               />
+              <Product />
             </div>
 
             <div className='home__row'>

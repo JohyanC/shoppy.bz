@@ -11,6 +11,8 @@
     z-index: 1;
     margin-left: 5px;
     margin-right: 5px;
+    position: relative;
+    top: -60px;
 }
 
 .home__image {
