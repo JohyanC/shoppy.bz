@@ -1,6 +1,6 @@
 import React from 'react'
 import {Currency} from 'react-tender';
-import './Subtotal.css'
+import '../style/Subtotal.css'
 import { useStateValue } from './StateProvider';
 import { getcartTotal } from './reducer';
 import { useNavigate } from 'react-router-dom';

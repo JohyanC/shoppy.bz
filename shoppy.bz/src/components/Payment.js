@@ -1,5 +1,5 @@
 import React from 'react'
-import './Payment.css'
+import '../style/Payment.css'
 import { useStateValue } from './StateProvider'
 import CheckoutProduct from './CheckoutProduct'
 import { Link } from 'react-router-dom'

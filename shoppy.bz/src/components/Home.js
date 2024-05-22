@@ -1,8 +1,8 @@
 import React from 'react'
-import "./Home.css"
+import "../style/Home.css"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Product from './Product';
-import logo from './temp-logo.png';
+import logo from '../assets/temp-logo.png';
 
 function Home() {
   return (

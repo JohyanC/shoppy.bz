@@ -1,8 +1,8 @@
 import React from 'react'
-import './Header.css'
+import '../style/Header.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import logo from "./assets/Logo/Shoppy - Transparent PNG (White).png";
+import logo from "../assets/Logo/Shoppy - Transparent PNG (White).png";
 import { Link, Outlet } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 import { auth } from './firebase';

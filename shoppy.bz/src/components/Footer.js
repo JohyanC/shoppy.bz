@@ -1,8 +1,8 @@
 import React from 'react'
-import './Footer.css'
+import '../style/Footer.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import logo from './logo.png';
+import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
 
