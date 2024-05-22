@@ -2,6 +2,11 @@ import React from 'react'
 import '../style/Header.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import logo from "../assets/Logo/Shoppy - Transparent PNG (White).png";
 import { Link, Outlet } from 'react-router-dom';
 import { useStateValue } from './StateProvider';
@@ -44,33 +49,33 @@ function Header() {
         </div>
 
         
-      <div className='header__nav'>
-        <Link to={!user && 'login'} className='text-link'>
-          <div className='header__option' onClick={handleAuthentication}>
-            <span className='header__optionLineOne'>{user ? user.email : 'Hello Guest'}</span>
-            <span className='header__optionLineTwo'>{user ? 'Sign Out' : 'Sign In' }</span>
-          </div>
-        </Link>
-        <Link to='orders' className='text-link'>
-          <div className='header__option'>
-            <span className='header__optionLineOne'>Returns</span>
-            <span className='header__optionLineTwo'>& Orders</span>
-          </div>
-        </Link>
-
-        <Link to='checkout' className='text-link'>
-          <div className='header__optioncart'>
-            <div className='header__option'>
-              <span className='header__optionLineOne'>Your</span>
-              <span className='header__optionLineTwo'>Cart</span>
+        <div className='header__nav'>
+          <Link to={!user && 'login'} className='text-link'>
+            <div className='header__option' onClick={handleAuthentication}>
+              <span className='header__optionLineOne'>{user ? user.email : 'Hello Guest'}</span>
+              <span className='header__optionLineTwo'>{user ? 'Sign Out' : 'Sign In' }</span>
             </div>
+          </Link>
+          <Link to='orders' className='text-link'>
+            <div className='header__option'>
+              <span className='header__optionLineOne'>Returns</span>
+              <span className='header__optionLineTwo'>& Orders</span>
+            </div>
+          </Link>
 
-            <ShoppingCartIcon/>
-            <span className='header__optionLineTwo header__cartCount'>
-              {cart?.length}</span>
-          </div>
-        </Link>
-      </div>
+          <Link to='checkout' className='text-link'>
+            <div className='header__optioncart'>
+              <div className='header__option'>
+                <span className='header__optionLineOne'>Your</span>
+                <span className='header__optionLineTwo'>Cart</span>
+              </div>
+
+              <ShoppingCartIcon/>
+              <span className='header__optionLineTwo header__cartCount'>
+                {cart?.length}</span>
+            </div>
+          </Link>
+        </div>
       </div>
       
     </div>
