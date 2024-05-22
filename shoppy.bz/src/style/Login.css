@@ -7,22 +7,19 @@
 }
 
 .login__logo {
-    margin-top: 20px;
-    margin-bottom: 15px;
+    margin: auto;
     object-fit: contain;
-    width: 110px;
-    margin-left: 10px;
-    margin-right: auto;
+    width: 210px;
 }
 
 .login__container {
-    width: 300px;
+    width: 600px;
     height: fit-content;
     display: flex;
-    flex-direction: column;
     border: 1px solid gray;
     border-radius: 5px;
     padding: 20px;
+    margin: auto;
 }
 
 .login__container h1 {
@@ -67,4 +64,14 @@
     border-color: darkgray;
     color: #111;
     border-radius: 5px;
+}
+
+.login-container-login {
+    width: 300px;
+    padding-right: 10px;
+}
+
+.login-container-register {
+    width: 300px;
+    padding-left: 10px;
 }

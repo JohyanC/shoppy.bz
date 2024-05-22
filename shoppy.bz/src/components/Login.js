@@ -55,31 +55,14 @@ function Login() {
       })
   );
 
-
-      
-    
+ 
 
 
-   {/*} auth
-    .createUserWithEmailAndPassword(email, password)
-    .then((auth) => {
-      alert(auth) 
-      if(auth) {
-        // eslint-disable-next-line no-restricted-globals
-        history.pushState('/')}
-      })
-    .catch(error => alert(error.message))
 
-    
-  const fui {
-    ui.start('#firebaseui-auth-container', {
-      signInOptions: [
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ],
-      // Other config options...
-    });
-  }
-    */}
+
+
+
+
 
 
   return (
@@ -90,20 +73,100 @@ function Login() {
           alt='Shoppy Logo'
         />
       </Link>
-      <div className='login__container'>      
-        <h1 className='login__text'>Log in</h1>
-        <form>
-          <h5>Email</h5>
-          <input type='email' value={email} onChange={e=> setEmail(e.target.value)}/>
-          <h5>Password</h5>
-          <input type='password' value={password} onChange={e=> setPassword(e.target.value)}/>
-          <p>{email}</p>
-          <button className='login__signInButton' type='submit' onClick={signIn}>Sign in</button>
-        </form>
-        <p>
-          By signing in you agree to Shoppy's Conditions of use & sale. Please see our Privacy Notice, ourcookies Notice, and our Internet Based Ads Notice.
-        </p>
-        <button className='login__registerButton' type='submit' onClick={register}>Create your account</button>
+      <div className='login__container'> 
+        <div className='login-container-login'>
+          <h1 className='login__text'>Log in</h1>
+          <form>
+            
+            <label for='email1'>Email</label>
+            <input 
+              type='email'
+              id='email1' 
+              value={email} 
+              onChange={e=> setEmail(e.target.value)}
+              autoComplete='email'
+              required='true'
+              placeholder='Username'
+              spellCheck='false'/>
+
+            <label for='pwd'>Password</label>
+            <input 
+              type='password' 
+              id='pwd'
+              //value={password} 
+              onChange={e=> setPassword(e.target.value)}
+              autoComplete='password'
+              required='true'
+              placeholder='Password'
+              spellCheck='false'/>
+
+            <p>{email}</p>
+
+            <button className='login__signInButton' type='submit' onClick={signIn}>Sign in</button>
+          </form>
+          <p>
+            By signing in you agree to Shoppy's Conditions of use & sale. Please see our Privacy Notice, ourcookies Notice, and our Internet Based Ads Notice.
+          </p>
+        <button className='login__registerButton' type='submit' onClick={register}>Create your account
+        </button>
+        </div>
+        <div className='login-container-register'>
+        <h1 className='login__text'>Sign up</h1>
+
+          <form>
+            <label for='username'>Username</label>
+            <input 
+              type='text'
+              id='username'
+              autoComplete='name'
+              required='true'
+              placeholder='Username'
+              spellCheck='false'/>
+
+
+            <label for='email'>Email</label>
+            <input 
+              type='email' 
+              id='email'
+              //value={email} 
+              onChange={e=> setEmail(e.target.value)}
+              autoComplete='email'
+              required='true'
+              placeholder='Email'
+              spellCheck='false'/>
+
+            <label for='pwdNew'>Password</label>
+            <input 
+              type='password' 
+              id='pwdNew'
+              name='p2'
+              //value={password} 
+              onChange={e=> setPassword(e.target.value)}
+              placeholder='Password'
+              maxLength={32}
+              autoComplete='new-password'
+              required='true'
+              pellCheck='false'/>
+            
+            <label for='pwdNewCheck'>Confirm password</label>
+            <input 
+              type='password' 
+              id='pwdNewCheck'
+              name='p2'
+              //value={password} 
+              onChange={e=> setPassword(e.target.value)}
+              placeholder='Confirm password'
+              maxLength={32}
+              autoComplete='new-password'
+              required='true'
+              spellCheck='false'/>
+
+            <p>{email}</p>
+            <button className='login__signInButton' type='submit' onClick={signIn}>Continue</button>
+          </form>
+
+        </div>
+        
       </div>
     </div>
   )
