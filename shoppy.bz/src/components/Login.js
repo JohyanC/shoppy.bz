@@ -3,16 +3,20 @@ import '../style/Login.css'
 import logo from '../assets/logo.jpeg'
 import { Link, useNavigate  } from 'react-router-dom'
 import { app, auth } from './firebase'
-import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
-
+import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, OAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
+import { useMsal } from "@azure/msal-react";
+import { loginRequest } from "../authConfig";
+import error from './404'
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { instance } = useMsal();
+  const provider = new OAuthProvider('microsoft.com');
 
-  const signIn = e => (
-    e.preventDefault(),
+  const signIn = e => {
+    e.preventDefault()
     //Firebase implementation
 
     signInWithEmailAndPassword(auth, email, password)
@@ -30,11 +34,58 @@ function Login() {
       const errorMessage = error.message;
       console.log(errorMessage);
     })
-  );
+  };
 
-  
-  const register = e => (
-    e.preventDefault(),
+  const handleLogin = (loginType) => {
+
+    if (loginType === 'email') {
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      if (user) {
+        navigate('/');
+      }
+    })
+  } else if (loginType === 'msOAuth') {
+
+    signInWithRedirect(auth, provider)
+      .then((result) => {
+        const credential = OAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        const idToken = credential.idToken;
+        console.log(credential);
+
+        instance.loginRedirect(loginRequest).catch((e) => {
+        console.log(e);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      })
+    });
+  }
+};
+
+const handleLogout = (loginType) => {
+
+  if (loginType === 'email') {
+    signOut(auth)
+    .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    if (user) {
+      navigate('/');
+    }
+  })
+} 
+};  
+
+  const register = e => {
+    e.preventDefault()
     //Firebase implementation
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -53,18 +104,9 @@ function Login() {
         const errorMessage = error.message;
         // ..
       })
-  );
+    };
 
  
-
-
-
-
-
-
-
-
-
   return (
     <div className='login'>
       <Link to='/'>
@@ -82,7 +124,7 @@ function Login() {
             <input 
               type='email'
               id='email1' 
-              value={email} 
+              //value={email} 
               onChange={e=> setEmail(e.target.value)}
               autoComplete='email'
               required='true'
@@ -102,7 +144,7 @@ function Login() {
 
             <p>{email}</p>
 
-            <button className='login__signInButton' type='submit' onClick={signIn}>Sign in</button>
+            <button className='login__signInButton' type='submit' onClick={() => handleLogin("email")}>Sign in</button>
           </form>
           <p>
             By signing in you agree to Shoppy's Conditions of use & sale. Please see our Privacy Notice, ourcookies Notice, and our Internet Based Ads Notice.
@@ -162,7 +204,8 @@ function Login() {
               spellCheck='false'/>
 
             <p>{email}</p>
-            <button className='login__signInButton' type='submit' onClick={signIn}>Continue</button>
+            <button className='login__MS' type='submit' onClick={() => handleLogin("msOAuth")}>Microsoft</button>
+            <button className='logout__MS' type='submit' onClick={() => handleLogout("msOAuth")}>Log out</button>
           </form>
 
         </div>
