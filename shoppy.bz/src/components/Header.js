@@ -5,6 +5,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import logo from "../assets/Logo/Shoppy - Transparent PNG (White).png";
@@ -24,8 +25,15 @@ function Header() {
     <div className='header'>
 
       <div className='header__topBar'>
-        <span>APP Download</span>
-        <span>Follow us on</span>
+        <div className='h-TopBar-App'>APP Download</div>
+        <div className='h-TopBar-text'>Follow us on</div>
+        <div className='h-Topbar-Socials'>
+          <Link to='https://www.instagram.com/'>
+            <InstagramIcon/></Link>
+          <Link to={'https://www.facebook.com/'}>
+          <FacebookIcon/></Link>
+          <WhatsAppIcon/>
+        </div>
       </div>
 
       <div className='header__withSearch'>
@@ -39,11 +47,20 @@ function Header() {
 
         <div className='header-search'>
         <form className='header__search'>
-          <input className='header__searchInput'
+          <input 
+            className='header__searchInput'
+            placeholder='Search'
             type='text' />
           <SearchIcon className='header__searchIcon'/>
         </form>
-        <div className='header__categories'><span>Categories</span>Gaming PC Headphones</div>
+        <div className='header__categories'>
+          <div className='h-categories'>Categories <NavigateNextIcon/></div>
+          <div className='h-categories'>Gaming PC</div>
+          <div className='h-categories'>Headphones</div>
+          <div className='h-categories'>Clothing</div>
+          <div className='h-categories'>PCs</div>
+          <div className='h-categories'>Accessories</div>
+        </div>
           
 
         </div>

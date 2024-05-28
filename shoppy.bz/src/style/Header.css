@@ -14,11 +14,27 @@
     box-sizing: border-box;
     padding-left: 64px;
     padding-right: 64px;
+    box-sizing: border-box;
 }
 .header__topBar {
-    position: relative;
+    display: flex ;
     z-index: 400;
     height: 2.125rem;
+    color: aliceblue;
+}
+
+.h-TopBar-App {
+    margin: 4px;
+    font-size: small;
+}
+.h-TopBar-text {    
+    margin: 4px;
+    font-size: small;
+}
+.h-Topbar-Socials svg {
+    margin-top: 5px;
+    font-size: medium;
+    color: aliceblue;
 }
 
 .header__withSearch {
@@ -33,6 +49,17 @@
 .header__categories {
     display: flex;
     width: 100%;
+    margin-left: 8px;
+}
+.h-categories {
+    color: aliceblue;
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: small;
+}
+.h-categories svg {
+    color: aliceblue;
+    height: 20px;
 }
 
 .header__nav {
@@ -45,7 +72,7 @@
 }
 
 .header img {
-    margin-top: 20px;
+    margin-top: 12px;
     margin-bottom: 20px;
     object-fit: contain;
     width: 112px;
@@ -59,8 +86,7 @@
     flex-direction: column;
     justify-content: flex-start;
     position: relative;
-    min-width: 500px;
-    width: 60%;
+    width: 75%;
 }
 
 .header__search {
@@ -88,6 +114,14 @@
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }
+.header__option {
+    display: flex;
+    flex-direction: column;
+    margin-left: 4px;
+    margin-right: 4px;
+    color: white;
+    text-wrap: nowrap;
+}
 
 .header__optionLineOne {
     font-size: 10px;
@@ -110,13 +144,6 @@
 }
 
 
-.header__option {
-    display: flex;
-    flex-direction: column;
-    margin-left: 8px;
-    margin-right: 8px;
-    color: white;
-}
 
 .text-link {
     text-decoration: none !important;

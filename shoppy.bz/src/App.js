@@ -52,6 +52,7 @@ function App() {
           </Route>
           <Route path="login" element={<Login/>}/> 
           <Route path="*" element={<NoMatch />}/> 
+          <Route path='/facebook' />
         </Routes> 
       </div>
     </Router>
