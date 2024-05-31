@@ -2,12 +2,13 @@ import react, { useEffect } from "react";
 import './App.css';
 import Header from './components/Header';
 import Footer from "./components/Footer";
-import Home from './components/Home';
-import Checkout from "./components/Checkout";
-import Login from './components/Login';
+import Home from './components/pages/Home';
+import Checkout from "./components/pages/Checkout";
+import Login from './components/pages/Login';
 import NoMatch from './components/404';
 import Payment from "./components/Payment";
 import Orders from "./components/Orders";
+import Product from "./components/pages/Product";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { auth } from "./components/firebase";
 import { useStateValue } from "./components/StateProvider";
@@ -47,12 +48,13 @@ function App() {
             <Route path="checkout" element={<Checkout/>}/>
             <Route path="/checkout/payment" element={<Payment/>}/>
             <Route path='orders' element={<Orders/>}/>
+            <Route path='product' />
+            <Route path=':itemName/:itenId' element={<Product/>}/>
           </Route>
           <Route>
           </Route>
           <Route path="login" element={<Login/>}/> 
-          <Route path="*" element={<NoMatch />}/> 
-          <Route path='/facebook' />
+          <Route path="*" element={<NoMatch/>}/> 
         </Routes> 
       </div>
     </Router>

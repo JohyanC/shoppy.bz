@@ -1,8 +1,8 @@
 import React from 'react'
-import "../style/Home.css"
+import "../../style/Home.css"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Product from './Product';
-import logo from '../assets/temp-logo.png';
+import ProductInfo from '../ProductInfo';
+import logo from '../../assets/temp-logo.png';
 
 function Home() {
   return (
@@ -13,37 +13,37 @@ function Home() {
               alt='idk'
             />
             <div className='home__row'>
-              <Product 
+              <ProductInfo 
                 id="000100"
                 title='Lenovo Legion 7 Gaming Laptop' 
                 price={1499.99} 
                 image={logo} 
                 rating={4}
               />
-              <Product 
+              <ProductInfo 
                 id="000200"
                 title='SAMSUNG Galaxy S24 Ultra Cell Phone, 256GB AI Smartphone, ...' 
                 price={1049.99} 
                 image="https://m.media-amazon.com/images/I/71WcjsOVOmL._AC_SX679_.jpg" 
                 rating={4}
               />
-              <Product 
+              <ProductInfo 
                 id="000100"
                 title='Lenovo Legion 7 Gaming Laptop' 
                 price={1499.99} 
                 image={logo} 
                 rating={4}
               />
-              <Product />
+              <ProductInfo />
             </div>
 
             <div className='home__row'>
-              <Product />
-              <Product />
+              <ProductInfo />
+              <ProductInfo />
             </div>
 
             <div className='home__row'>
-              <Product />
+              <ProductInfo />
             </div>
         </div>
     </div>

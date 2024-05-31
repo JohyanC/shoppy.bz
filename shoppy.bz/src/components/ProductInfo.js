@@ -1,6 +1,7 @@
 import React from 'react'
-import "../style/Product.css"
+import "../style/ProductInfo.css"
 import { useStateValue } from './StateProvider'
+import { Link } from 'react-router-dom';
 
 function Product({id, title, image, price, rating}) {
   const [state, dispatch] = useStateValue();
@@ -21,7 +22,7 @@ function Product({id, title, image, price, rating}) {
 
   return (
     <div className='product'>
-        <div className='product__info'>
+        <div className='product__info' onClick={() => <Link to={'${title}/${id}'}/>}>
             <img
             src={image}
             alt='product'/>

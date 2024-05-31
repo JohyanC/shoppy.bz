@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import '../style/Login.css'
-import logo from '../assets/logo.jpeg'
+import '../../style/Login.css'
+import logo from '../../assets/logo.jpeg'
 import { Link, useNavigate  } from 'react-router-dom'
-import { app, auth } from './firebase'
+import { app, auth } from '../firebase'
 import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, OAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../authConfig";
-import error from './404'
+import { loginRequest } from "../../authConfig";
+import error from '../404'
 
 function Login() {
   const [email, setEmail] = useState('');
