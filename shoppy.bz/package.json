@@ -14,12 +14,16 @@
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^10.11.1",
     "firebaseui": "^6.1.0",
+    "postcss": "^8.4.38",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-lines-ellipsis": "^0.15.4",
     "react-router-dom": "^6.23.0",
-    "react-scripts": "^5.0.1",
     "react-tender": "^1.1.1",
     "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

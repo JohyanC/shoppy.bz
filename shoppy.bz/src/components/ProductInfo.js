@@ -2,6 +2,7 @@ import React from 'react'
 import "../style/ProductInfo.css"
 import { useStateValue } from './StateProvider'
 import { Link } from 'react-router-dom';
+import LinesEllipsis from 'react-lines-ellipsis'
 
 function Product({id, title, image, price, rating}) {
   const [state, dispatch] = useStateValue();
@@ -21,8 +22,9 @@ function Product({id, title, image, price, rating}) {
   };
 
   return (
-    <div className='product'>
-        <div className='product__info' onClick={() => <Link to={'${title}/${id}'}/>}>
+    <div className='product' >
+      <Link to={'${title}/${id}'}>
+        <div className='product__info' >
             <img
             src={image}
             alt='product'/>
@@ -36,10 +38,17 @@ function Product({id, title, image, price, rating}) {
                 {Array(rating).fill().map((_, i) => (<p>⭐</p>))}
             </div>
 
+            <LinesEllipsis
+              text={title}
+              maxLine='2'
+              ellipsis='...'
+              trimRight
+              basedOn='letters'
+            />
             
-            
-            <p>{title}</p>
         </div>
+      
+      </Link>
             <button onClick={addTocart}>Add to Cart</button>
     </div>
   )
