@@ -1,6 +1,6 @@
 import React from 'react'
-import '../style/CheckoutProduct.css'
-import { useStateValue } from './StateProvider';
+import './CheckoutProduct.css'
+import { useStateValue } from '../StateProvider';
 
 function CheckoutProduct({id, image, title, price, rating}) {
     const [{cart}, dispatch] = useStateValue();

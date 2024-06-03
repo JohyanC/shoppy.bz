@@ -1,7 +1,7 @@
 import React from 'react'
 import '../style/Payment.css'
 import { useStateValue } from './StateProvider'
-import CheckoutProduct from './CheckoutProduct'
+import CheckoutProduct from './Checkout/CheckoutProduct'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { db } from './firebase'

@@ -1,7 +1,7 @@
 import React from 'react'
-import "../../style/Home.css"
+import "./Home.css"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ProductInfo from '../ProductInfo';
+import ProductInfo from '../Product/ProductInfo';
 import logo from '../../assets/temp-logo.png';
 
 function Home() {

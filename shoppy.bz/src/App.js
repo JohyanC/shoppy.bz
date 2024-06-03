@@ -1,14 +1,14 @@
 import react, { useEffect } from "react";
 import './App.css';
-import Header from './components/Header';
-import Footer from "./components/Footer";
-import Home from './components/pages/Home';
-import Checkout from "./components/pages/Checkout";
-import Login from './components/pages/Login';
-import NoMatch from './components/404';
+import Header from './components/Header/Header';
+import Footer from "./components/Header/Footer";
+import Home from './components/Home/Home';
+import Checkout from "./components/Checkout/Checkout";
+import Login from './components/Login/Login';
+import NoMatch from './components/ErrorBoundrary/404';
 import Payment from "./components/Payment";
 import Orders from "./components/Orders";
-import Product from "./components/pages/Product";
+import Product from "./components/Product/Product";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { auth } from "./components/firebase";
 import { useStateValue } from "./components/StateProvider";

@@ -1,6 +1,6 @@
 import React from 'react'
-import "../../style/Product.css"
-import ProductInfo from '../ProductInfo';
+import "./Product.css"
+import ProductInfo from './ProductInfo';
 import { useStateValue } from '../StateProvider'
 import { Link } from 'react-router-dom';
 

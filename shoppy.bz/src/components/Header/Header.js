@@ -1,5 +1,5 @@
 import React from 'react'
-import '../style/Header.css'
+import './Header.css'
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -8,10 +8,10 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import logo from "../assets/Logo/Shoppy - Transparent PNG (White).png";
+import logo from "../../assets/Logo/Shoppy - Transparent PNG (White).png";
 import { Link, Outlet } from 'react-router-dom';
-import { useStateValue } from './StateProvider';
-import { auth } from './firebase';
+import { useStateValue } from '../StateProvider';
+import { auth } from '../firebase';
 
 function Header() {
     const [{cart, user}, dispatch] = useStateValue();

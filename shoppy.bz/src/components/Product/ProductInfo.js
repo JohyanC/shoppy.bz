@@ -1,6 +1,6 @@
 import React from 'react'
-import "../style/ProductInfo.css"
-import { useStateValue } from './StateProvider'
+import "./ProductInfo.css"
+import { useStateValue } from '../StateProvider'
 import { Link } from 'react-router-dom';
 import LinesEllipsis from 'react-lines-ellipsis'
 
