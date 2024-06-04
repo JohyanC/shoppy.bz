@@ -6,13 +6,50 @@
     max-width: 1500px;
 }
 
-.home__row {
+.home-flash-sale {
+
+}
+
+.home-recommended {
     display: flex;
     z-index: 1;
     margin-left: 5px;
     margin-right: 5px;
     position: relative;
     top: -60px;
+}
+
+.h-category-unit {
+    text-align: center;
+}
+
+.home-categories {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 8px;
+    padding: 20px;
+    max-height: 400px;
+    max-width: 1500px;
+    background-color: white;
+    z-index: 1;
+    border-radius: 12px;
+}
+
+.home-categories img {
+    
+    border-radius: 50%;
+}
+
+.h-category {
+    background-color: aliceblue;
+    margin: 4px;
+    padding: 12px;
+    width: 116px;
+}
+
+.h-category img {
+    border-radius: 50%;
 }
 
 .home__image {

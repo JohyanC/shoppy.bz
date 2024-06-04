@@ -1,50 +1,73 @@
 import React from 'react'
 import "./Home.css"
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ProductInfo from '../Product/ProductInfo';
-import logo from '../../assets/temp-logo.png';
+import advert from '../../assets/Adverts/advert-banner-1.jpg'
 
 function Home() {
   return (
     <div className='home'>
         <div className='home__container'>
+          <div className='home-hero'>
             <img className='home__image'
               src='https://m.media-amazon.com/images/I/61CiqVTRBEL._SX3000_.jpg'
-              alt='idk'
-            />
-            <div className='home__row'>
-              <ProductInfo 
-                id="000100"
-                title='Lenovo Legion 7 Gaming Laptop' 
-                price={1499.99} 
-                image={logo} 
-                rating={4}
-              />
-              <ProductInfo 
-                id="000200"
-                title='SAMSUNG Galaxy S24 Ultra Cell Phone, 256GB AI Smartphone, ...' 
-                price={1049.99} 
-                image="https://m.media-amazon.com/images/I/71WcjsOVOmL._AC_SX679_.jpg" 
-                rating={4}
-              />
-              <ProductInfo 
-                id="000100"
-                title='Lenovo Legion 7 Gaming Laptop' 
-                price={1499.99} 
-                image={logo} 
-                rating={4}
-              />
-              <ProductInfo />
+              alt='idk'/>
+          </div>
+          <div className='home-flash-sale'>
+            
+          </div>
+          <div className='home-recommended'>
+            <ProductInfo 
+              id="6N7nrmBVSQcITLwJAJpD"/>
+            <ProductInfo 
+              id="Zj80EhxMZTWiNqopBPB8"/>
+            <ProductInfo 
+              id="pajNHyext1nKuQ7ITI2I"/>
+          </div>
+          <div className='home-recommended'>
+            <ProductInfo 
+              id='aS5yuAyTLtlOOqXbADrk'/>
+            <ProductInfo 
+              id='aS5yuAyTLtlOOqXbADrk'/>
+          </div>
+          <div className='home-categories'>
+            <div className='h-category-unit'>
+              <img className='h-category'
+                src='https://www.w3schools.com/howto/img_avatar.png'
+                alt='idk'/>
+              <p>Gaming PC </p>
+            </div>            
+            <div className='h-category-unit'>
+              <img className='h-category'
+                src='https://www.w3schools.com/howto/img_avatar.png'
+                alt='idk'/>
+              <p>Clothing</p></div>
+            <div className='h-category-unit'>
+              <img className='h-category'
+                src='https://www.w3schools.com/howto/img_avatar.png'
+                alt='idk'/>
+              <p>Headphones</p></div>
+            <div className='h-category-unit'>
+              <img className='h-category'
+                src='https://www.w3schools.com/howto/img_avatar.png'
+                alt='idk'/>
+              <p>Computers</p></div>
+            <div className='h-category-unit'>
+              <img className='h-category'
+                src='https://www.w3schools.com/howto/img_avatar.png'
+                alt='idk'/>
+              <p>Accessories</p></div>
+            <div className='h-category-unit'>
+              <img className='h-category'
+                src='https://www.w3schools.com/howto/img_avatar.png'
+                alt='idk'/>
+              <p>All Categories</p></div>
+          </div>
+          <div className='advert-bottom'>
+            <div className='advert-banner'>
+              <img src={advert}
+                alt='sell with us advert'/>
             </div>
-
-            <div className='home__row'>
-              <ProductInfo />
-              <ProductInfo />
-            </div>
-
-            <div className='home__row'>
-              <ProductInfo />
-            </div>
+          </div>
         </div>
     </div>
   )

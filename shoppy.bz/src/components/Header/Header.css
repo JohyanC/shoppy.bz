@@ -16,23 +16,35 @@
     padding-right: 64px;
     box-sizing: border-box;
 }
-.header__topBar {
+.header-topbar {
     display: flex ;
     z-index: 400;
     height: 2.125rem;
     color: aliceblue;
 }
 
-.h-TopBar-App {
+.h-topbar-App {
     margin: 4px;
     font-size: small;
 }
-.h-TopBar-text {    
+.h-topbar-text {    
     margin: 4px;
     font-size: small;
 }
-.h-Topbar-Socials svg {
+.h-topbar-Socials svg {
     margin-top: 5px;
+    font-size: medium;
+    color: aliceblue;
+}
+.h-spacer {
+    width: 400px;
+}
+.h-topbar-info {
+    margin: 4px;
+    font-size: small;
+    display: flex;
+}
+.h-topbar-info svg {
     font-size: medium;
     color: aliceblue;
 }

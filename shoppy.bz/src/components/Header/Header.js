@@ -24,15 +24,20 @@ function Header() {
   return (
     <div className='header'>
 
-      <div className='header__topBar'>
-        <div className='h-TopBar-App'>APP Download</div>
-        <div className='h-TopBar-text'>Follow us on</div>
-        <div className='h-Topbar-Socials'>
+      <div className='header-topbar'>
+        <div className='h-topbar-App'>APP Download</div>
+        <div className='h-topbar-text'>Follow us on</div>
+        <div className='h-topbar-Socials'>
           <Link to='https://www.instagram.com/'>
             <InstagramIcon/></Link>
           <Link to={'https://www.facebook.com/'}>
           <FacebookIcon/></Link>
           <WhatsAppIcon/>
+        </div>
+        <div className='h-spacer'/>
+        <div className='h-topbar-info'>
+          <p><NotificationsNoneIcon/>Notifications</p>
+          <p><HelpOutlineIcon/>Help</p>
         </div>
       </div>
 
@@ -58,7 +63,7 @@ function Header() {
           <div className='h-categories'>Gaming PC</div>
           <div className='h-categories'>Headphones</div>
           <div className='h-categories'>Clothing</div>
-          <div className='h-categories'>PCs</div>
+          <div className='h-categories'>Computers</div>
           <div className='h-categories'>Accessories</div>
         </div>
           
