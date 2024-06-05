@@ -3,19 +3,18 @@ import './Login.css'
 import logo from '../../assets/logo.jpeg'
 import { Link, useNavigate  } from 'react-router-dom'
 import { app, auth } from '../firebase'
-import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, OAuthProvider, signInWithRedirect, signOut } from "firebase/auth";
-import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../../authConfig";
+import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, OAuthProvider, signInWithRedirect, signOut, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
 import error from '../ErrorBoundrary/404'
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
-  const { instance } = useMsal();
-  const provider = new OAuthProvider('microsoft.com');
+  const msProvider = new OAuthProvider('microsoft.com');
+  const ggleProvider = new GoogleAuthProvider();
 
-  const signIn = e => {
+  {/*const signIn = e => {
     e.preventDefault()
     //Firebase implementation
 
@@ -25,7 +24,7 @@ function Login() {
       const user = userCredential.user;
       console.log(user);
       if (user) {
-        navigate('/');
+        navigate('/');_CART
       }
       // ...
     })
@@ -34,7 +33,7 @@ function Login() {
       const errorMessage = error.message;
       console.log(errorMessage);
     })
-  };
+  };*/}
 
   const handleLogin = (loginType) => {
 
@@ -42,56 +41,82 @@ function Login() {
       signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
-      console.log(user);
-      if (user) {
-        navigate('/');
-      }
+      const user = userCredential.user
+      
+      console.log(user)      
+      window.location.href='/'
     })
   } else if (loginType === 'msOAuth') {
 
-    signInWithRedirect(auth, provider)
-      .then((result) => {
-        const credential = OAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-        const idToken = credential.idToken;
-        console.log(credential);
+    signInWithRedirect(auth, msProvider)
+    getRedirectResult(auth)
+    .then((result) => {
+      // User is signed in.
+      // IdP data available in result.additionalUserInfo.profile.
 
-        instance.loginRedirect(loginRequest).catch((e) => {
-        console.log(e);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage);
-      })
+      // Get the OAuth access token and ID Token
+      const credential = OAuthProvider.credentialFromResult(result)
+      const accessToken = credential.accessToken
+      const idToken = credential.idToken
+
+      window.location.href='/'
+      console.log(credential)
+    })
+    .catch((error) => {
+      // Handle error.
+    });
+  }
+  else if (loginType === 'ggleOAuth'){
+    signInWithRedirect(auth, ggleProvider)
+    getRedirectResult(auth)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access Google APIs.
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      const token = credential.accessToken
+
+      // The signed-in user info.
+      const user = result.user
+      // IdP data available using getAdditionalUserInfo(result)
+      window.location.href='/'
+      console.log(user)
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code
+      const errorMessage = error.message
+      // The email of the user's account used.
+      const email = error.customData.email
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error)
+      // ...
     });
   }
 };
 
-const handleLogout = (loginType) => {
+const handleLogout = () => {
 
-  if (loginType === 'email') {
     signOut(auth)
-    .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user);
-    if (user) {
-      navigate('/');
-    }
-  })
-} 
+    .then (() => {
+      alert("Sign out successful")
+      navigate('/')
+    })
+    .catch((error) => {
+      console.log(error)
+    });
 };  
 
-  const register = e => {
+  const handleRegister = e => {
     e.preventDefault()
     //Firebase implementation
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up 
-      const user = userCredential.user;
+      const user = userCredential.user
+
         if (user) {
+          updateProfile(user, {
+            displayName: user.email.match(/^([^@]*)@/)[1],
+          })
+          setUsername(user.displayName)
           window.location.href='/';
         }
         else {
@@ -100,8 +125,8 @@ const handleLogout = (loginType) => {
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        const errorCode = error.code
+        const errorMessage = error.message
         // ..
       })
     };
@@ -120,25 +145,25 @@ const handleLogout = (loginType) => {
           <h1 className='login__text'>Log in</h1>
           <form>
             
-            <label for='email1'>Email</label>
+            <label htmlFor='email1'>Email</label>
             <input 
               type='email'
               id='email1' 
               //value={email} 
               onChange={e=> setEmail(e.target.value)}
               autoComplete='email'
-              required='true'
+              required={true}
               placeholder='Username'
               spellCheck='false'/>
 
-            <label for='pwd'>Password</label>
+            <label htmlFor='pwd'>Password</label>
             <input 
               type='password' 
               id='pwd'
               //value={password} 
               onChange={e=> setPassword(e.target.value)}
               autoComplete='password'
-              required='true'
+              required={true}
               placeholder='Password'
               spellCheck='false'/>
 
@@ -149,35 +174,37 @@ const handleLogout = (loginType) => {
           <p>
             By signing in you agree to Shoppy's Conditions of use & sale. Please see our Privacy Notice, ourcookies Notice, and our Internet Based Ads Notice.
           </p>
-        <button className='login__registerButton' type='submit' onClick={register}>Create your account
+        <button className='login__registerButton' type='submit' onClick={handleRegister}>Create your account
         </button>
         </div>
+
+        
         <div className='login-container-register'>
         <h1 className='login__text'>Sign up</h1>
 
           <form>
-            <label for='username'>Username</label>
+            <label htmlFor='username'>Username</label>
             <input 
               type='text'
               id='username'
               autoComplete='name'
-              required='true'
+              required={true}
               placeholder='Username'
               spellCheck='false'/>
 
 
-            <label for='email'>Email</label>
+            <label htmlFor='email'>Email</label>
             <input 
               type='email' 
               id='email'
               //value={email} 
               onChange={e=> setEmail(e.target.value)}
               autoComplete='email'
-              required='true'
+              required={true}
               placeholder='Email'
               spellCheck='false'/>
 
-            <label for='pwdNew'>Password</label>
+            <label htmlFor='pwdNew'>Password</label>
             <input 
               type='password' 
               id='pwdNew'
@@ -187,10 +214,10 @@ const handleLogout = (loginType) => {
               placeholder='Password'
               maxLength={32}
               autoComplete='new-password'
-              required='true'
-              pellCheck='false'/>
+              required={true}
+              spellCheck='false'/>
             
-            <label for='pwdNewCheck'>Confirm password</label>
+            <label htmlFor='pwdNewCheck'>Confirm password</label>
             <input 
               type='password' 
               id='pwdNewCheck'
@@ -200,12 +227,15 @@ const handleLogout = (loginType) => {
               placeholder='Confirm password'
               maxLength={32}
               autoComplete='new-password'
-              required='true'
+              required={true}
               spellCheck='false'/>
 
             <p>{email}</p>
             <button className='login__MS' type='submit' onClick={() => handleLogin("msOAuth")}>Microsoft</button>
-            <button className='logout__MS' type='submit' onClick={() => handleLogout("msOAuth")}>Log out</button>
+
+            <button className='logout__MS' type='submit' onClick={() => handleLogin("ggleOAuth")}>Google</button>
+            
+            <button className='logout__MS' type='submit' onClick={() => handleLogout()}>Log out</button>
           </form>
 
         </div>

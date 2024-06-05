@@ -30,14 +30,7 @@ const reducer=(state, action) => {
 
             if (index >= 0) {
                 newcart.splice(index, 1);
-
-            // eslint-disable-next-line no-lone-blocks
-            } /*else {
-                console.warn(
-                    'Cant remove the product (id: ${action.id}) as its not in the cart'
-                )
-            }*/
-            
+            }            
             return {
                 ...state,
                 cart: newcart

@@ -9,15 +9,21 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import logo from "../../assets/Logo/Shoppy - Transparent PNG (White).png";
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet,useNavigate } from 'react-router-dom';
 import { useStateValue } from '../StateProvider';
-import { auth } from '../firebase';
+import { auth } from '../firebase'
 
 function Header() {
     const [{cart, user}, dispatch] = useStateValue();
+    
+  const navigate = useNavigate();
+
     const handleAuthentication = () => {
       if (user) {
-        auth.signOut();
+        auth.signOut()
+        
+      alert("Sign out successful")
+      navigate('/')
       }
     }
 
@@ -44,7 +50,7 @@ function Header() {
       <div className='header__withSearch'>
         
         <Link to='/'>
-          <img classname='header__logo'
+          <img className='header__logo'
             src={logo}
             alt='shoppy logo'
           />
@@ -74,7 +80,7 @@ function Header() {
         <div className='header__nav'>
           <Link to={!user && 'login'} className='text-link'>
             <div className='header__option' onClick={handleAuthentication}>
-              <span className='header__optionLineOne'>{user ? user.email : 'Hello Guest'}</span>
+              <span className='header__optionLineOne'>{user ? user.username : 'Hello Guest'}</span>
               <span className='header__optionLineTwo'>{user ? 'Sign Out' : 'Sign In' }</span>
             </div>
           </Link>

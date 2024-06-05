@@ -12,20 +12,24 @@ import Product from "./components/Product/Product";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { auth } from "./components/firebase";
 import { useStateValue } from "./components/StateProvider";
+import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
-  const [{},dispatch] = useStateValue();
+  const [{User},dispatch] = useStateValue();
 
   useEffect(() => {
     //Will only run once with this component loads...
-    auth.onAuthStateChanged(authUser => {
-      console.log("The user is >>>>>>", authUser);
+    onAuthStateChanged(auth, (user) => {
 
-      if (authUser) {
+      if (user) {
         //The user is logged in, or logs in
+        const uid = user.uid;
         dispatch({
           type:'SET_USER',
-          user:authUser
+          user: {
+            username: user.displayName,
+            email: user.email
+          }
         })
       }
       else {
