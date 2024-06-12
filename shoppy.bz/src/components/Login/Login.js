@@ -43,7 +43,7 @@ function Login() {
           // Signed in 
           const user = userCredential.user
 
-          alert(user)
+          //alert(user)
           //window.location.href = '/';
         })
         .catch((error) => {
@@ -52,11 +52,15 @@ function Login() {
           if (errorCode === 'auth/wrong-password')
             alert("Incorrect password")
           console.log(error)
-        });
+        })
+        
+        await navigate('/');
     } else if (loginType === 'msOAuth') {
-
+      msProvider.setCustomParameters({
+        prompt: 'consent'
+      })
       signInWithRedirect(auth, msProvider)
-      await getRedirectResult(auth)
+       getRedirectResult(auth)
         .then((result) => {
           // User is signed in.
           // IdP data available in result.additionalUserInfo.profile.
@@ -65,15 +69,14 @@ function Login() {
           const credential = OAuthProvider.credentialFromResult(result)
           const accessToken = credential.accessToken
           const idToken = credential.idToken
-
-          window.location.href = '/'
+          
           console.log(credential)
+          navigate('/');
+          //window.location.href = '/'
         })
         .catch((error) => {
           const errorCode = error.code
           const errorMessage = error.message
-          if (errorCode === 'auth/wrong-password')
-            alert("Incorrect password")
           console.log(error)
         });
     }

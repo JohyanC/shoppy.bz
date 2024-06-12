@@ -28,6 +28,7 @@ function App() {
           type:'SET_USER',
           user: {
             username: user.displayName,
+            uid: uid,
             email: user.email
           }
         })
@@ -54,8 +55,6 @@ function App() {
             <Route path='orders' element={<Orders/>}/>
             <Route path='product' />
             <Route path=':itemName/:itenId' element={<Product/>}/>
-          </Route>
-          <Route>
           </Route>
           <Route path="login" element={<Login/>}/> 
           <Route path="*" element={<NoMatch/>}/> 

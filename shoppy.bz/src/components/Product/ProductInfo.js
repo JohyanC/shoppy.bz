@@ -13,24 +13,25 @@ import { useState } from 'react';
 function Product(id) {
   const [state, dispatch] = useStateValue();
   
-  const getItemInfo = async () => {
-    const docRef = doc(db, 'inventory', {id});
-    const docSnap = await getDoc(docRef);
+  const getItemInfo =  async () => {
+    const docRef = doc(db, 'inventory', id.id);
+    const docSnap =  await getDoc(docRef);
   
-    if (docSnap.exists()) {
+    if (docSnap.exists) {
       console.log("Document data:", docSnap.data());
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
+    return docSnap;
   
-    const querySnapshot = await getDocs(collection(db, "inventory"));
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-    });
   }
+
+  useEffect(() => {
+    getItemInfo();
+  });
   
-  {/*const querySnapshot = await getDocs(collection(db, "users"));
+  {/*const querySnapshot = await getDocs(collection(db, "inventory"));
   querySnapshot.forEach((doc) => {
     console.log(`${doc.id} => ${doc.data()}`);
   });
@@ -51,23 +52,23 @@ function Product(id) {
 
   return (
     <div className='product' >
-      {/*<Link to={'${title}/${id}'}>
+      <Link to={'${title}/${id}'}>
         <div className='product__info' >
             <img
-            src={image}
+            //src={getItemInfo.img}
             alt='product'/>
             
             <p className='product__price'>
                 <small>$</small>
-                <strong>{price}</strong>
+                <strong>{getItemInfo.price}</strong>
             </p>
 
             <div className='product__rating'>
-                {Array(rating).fill().map((_, i) => (<p>⭐</p>))}
+                {Array(getItemInfo.rating).fill().map((_, i) => (<p>⭐</p>))}
             </div>
 
             <LinesEllipsis
-              text={title}
+              //text={getItemInfo.title}
               maxLine='2'
               ellipsis='...'
               trimRight
@@ -77,8 +78,8 @@ function Product(id) {
         </div>
       
       </Link>
-            <button onClick={addTocart}>Add to Cart</button>
-  */}</div>
+            {/*<button onClick={addTocart}>Add to Cart</button>*/}
+  </div>
   )
 }
 
