@@ -1,12 +1,25 @@
 .footer {
-    height: 60px;
+    height: 160px;
     display: flex;
-    align-items: center;
-    background-color: midnightblue;
     bottom: 0;
     z-index: 99;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
+    max-height: 320px;
+    width: 100%;
+    background-color: azure;
+}
+
+.footer-div {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer-socials {
+    display: flex;
+    flex-direction: column;
 }
 
 /*.header_logo {

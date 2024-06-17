@@ -9,6 +9,7 @@ import NoMatch from './components/ErrorBoundrary/404';
 import Payment from "./components/Payment";
 import Orders from "./components/Orders";
 import Product from "./components/Product/Product";
+import Account from "./components/Account/Account";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom"
 import { auth } from "./components/firebase";
 import { useStateValue } from "./components/StateProvider";
@@ -55,6 +56,7 @@ function App() {
             <Route path='orders' element={<Orders/>}/>
             <Route path='product' />
             <Route path=':itemName/:itenId' element={<Product/>}/>
+            <Route path='account/userprofile' element={<Account/>}/>
           </Route>
           <Route path="login" element={<Login/>}/> 
           <Route path="*" element={<NoMatch/>}/> 

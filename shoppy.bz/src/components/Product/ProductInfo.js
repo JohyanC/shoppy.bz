@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import "./ProductInfo.css"
 import { useStateValue } from '../StateProvider'
 import { Link } from 'react-router-dom';
-import LinesEllipsis from 'react-lines-ellipsis'
+//import LinesEllipsis from 'react-lines-ellipsis'
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
 import { doc, getDoc } from "firebase/firestore";
@@ -67,13 +67,13 @@ function Product(id) {
                 {Array(getItemInfo.rating).fill().map((_, i) => (<p>⭐</p>))}
             </div>
 
-            <LinesEllipsis
+            {/*<LinesEllipsis
               //text={getItemInfo.title}
               maxLine='2'
               ellipsis='...'
               trimRight
               basedOn='letters'
-            />
+  />*/}
             
         </div>
       
