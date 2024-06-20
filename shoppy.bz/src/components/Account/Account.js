@@ -1,9 +1,12 @@
 import React from 'react'
+import './Account.css'
 import Profile from './Profile.js'
+import Security from './Security.js'
 
 function Account() {
   return (
-    <><div className='account-sidebar'>
+    <div className='account-container'>
+        <div className='account-sidebar'>
           <div className='account-sidebar-categories'>
               <div className='account-category'>
                   Profile
@@ -22,8 +25,14 @@ function Account() {
               </div>
           </div>
       </div>
+
+      <div className='account-details'>
           //Implements dedicated page options
-          <Profile /></>
+          <Profile />
+          <Security />
+
+      </div>    
+    </div>
 
   )
 }

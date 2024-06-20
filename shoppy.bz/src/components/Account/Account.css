@@ -1,0 +1,22 @@
+.account-container {
+    display: flex;
+    width: 100%;
+    max-width: 1500px;
+    height: 100%;
+    padding: 36px;
+}
+
+.account-sidebar {
+    padding: 8px;
+}
+.account-sidebar-categories {
+
+}
+.account-category {
+    margin: auto;
+    padding-bottom: 4px;
+}
+
+.account-details {
+
+}
