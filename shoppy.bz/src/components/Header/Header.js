@@ -14,18 +14,26 @@ import { useStateValue } from '../StateProvider';
 import { auth } from '../firebase'
 
 function Header() {
-    const [{cart, user}, dispatch] = useStateValue();
+  const [{cart, user}, dispatch] = useStateValue();
     
   const navigate = useNavigate();
 
-    const handleAuthentication = () => {
-      if (user) {
-        auth.signOut()
-        
-      alert("Sign out successful")
-      navigate('/')
-      }
+  const handleAuthentication = () => {
+    if (user) {
+      auth.signOut()
+      
+    alert("Sign out successful")
+    navigate('/')
     }
+  };
+
+  const accountButton = () => {
+    if (!user)
+      <Link to='login'/>
+    else
+      <Link to='account/userprofile'/>
+  };
+
 
   return (
     <div className='header'>
@@ -78,8 +86,8 @@ function Header() {
 
         
         <div className='header__nav'>
-          <Link to={!user && 'login'} className='text-link'>
-            <div className='header__option' onClick={handleAuthentication}>
+          <Link to='login' className='text-link'>
+            <div className='header__option' onClick={accountButton}>
               <span className='header__optionLineOne'>{user ? user.username : 'Hello Guest'}</span>
               <span className='header__optionLineTwo'>{user ? 'Sign Out' : 'Sign In' }</span>
             </div>

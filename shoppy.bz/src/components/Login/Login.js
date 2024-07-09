@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import './Login.css'
 import logo from '../../assets/logo.jpeg'
 import { Link, useNavigate } from 'react-router-dom'
-import { app, auth } from '../firebase'
-import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, OAuthProvider, signInWithRedirect, signOut, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
+import { app,  } from '../firebase'
+import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, OAuthProvider, signInWithRedirect, signInWithPopup, signOut, GoogleAuthProvider, getRedirectResult, FacebookAuthProvider } from "firebase/auth";
 import error from '../ErrorBoundrary/404'
 
 function Login() {
@@ -13,105 +13,87 @@ function Login() {
   const navigate = useNavigate();
   const msProvider = new OAuthProvider('microsoft.com');
   const ggleProvider = new GoogleAuthProvider();
+  const metaProvider = new FacebookAuthProvider();
+  const auth = getAuth();
 
-  {/*const signIn = e => {
-    e.preventDefault()
-    //Firebase implementation
+  msProvider.setCustomParameters({
+    // Force re-consent.
+    prompt: 'login'
+  });
 
+  const emailLogin = (e) => {
+    e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(user);
-      if (user) {
-        navigate('/');_CART
-      }
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorMessage);
-    })
-  };*/}
-
-  const handleLogin = async (loginType) => {
-
-    if (loginType === 'email') {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user
-
-          //alert(user)
-          //window.location.href = '/';
-        })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          if (errorCode === 'auth/wrong-password')
-            alert("Incorrect password")
-          console.log(error)
-        })
-        
-        await navigate('/');
-    } else if (loginType === 'msOAuth') {
-      msProvider.setCustomParameters({
-        prompt: 'consent'
+        // Signed in 
+        const user = userCredential.user
+        // ...
       })
-      signInWithRedirect(auth, msProvider)
-       getRedirectResult(auth)
-        .then((result) => {
-          // User is signed in.
-          // IdP data available in result.additionalUserInfo.profile.
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  }
 
-          // Get the OAuth access token and ID Token
-          const credential = OAuthProvider.credentialFromResult(result)
-          const accessToken = credential.accessToken
-          const idToken = credential.idToken
-          
-          console.log(credential)
-          navigate('/');
-          //window.location.href = '/'
-        })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          console.log(error)
-        });
-    }
-    else if (loginType === 'ggleOAuth') {
-      signInWithRedirect(auth, ggleProvider)
-      await getRedirectResult(auth)
-        .then((result) => {
-          // This gives you a Google Access Token. You can use it to access Google APIs.
-          const credential = GoogleAuthProvider.credentialFromResult(result)
-          const token = credential.accessToken
+  const metaLogin = async (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, metaProvider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
 
-          // The signed-in user info.
-          const user = result.user
-          // IdP data available using getAdditionalUserInfo(result)
-          console.log(user)
-          navigate('/');
-        }).catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code
-          const errorMessage = error.message
-          // The email of the user's account used.
-          const email = error.customData.email
-          // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error)
-          // ...
-        });
-    }
-  };
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+    
+        // ...
+      })
+  }
+
+  const msLogin = async (e) => {
+    e.preventDefault();
+    signInWithPopup(auth, msProvider)
+      .then((result) => {
+        // User is signed in.
+        // IdP data available in result.additionalUserInfo.profile.
+
+        // Get the OAuth access token and ID Token
+        const credential = OAuthProvider.credentialFromResult(result);
+        console.log(result);
+        const accessToken = credential.accessToken;
+        const idToken = credential.idToken;
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(error)
+      });
+  }
+
+  const ggleLogin = async (e) => {
+    e.preventDefault();
+
+  }
+
 
   const handleLogout = async () => {
 
     signOut(auth)
       .then(() => {
         alert("Sign out successful")
-        navigate('/')
+        //navigate('/')
       })
       .catch((error) => {
         console.log(error)
@@ -155,6 +137,7 @@ function Login() {
           alt='Shoppy Logo'
         />
       </Link>
+
       <div className='login__container'>
         <div className='login-container-login'>
           <h1 className='login__text'>Log in</h1>
@@ -183,16 +166,26 @@ function Login() {
               spellCheck='false' />
 
             <p>{email}</p>
+            <p>{password}</p>
 
-            <button className='login__signInButton' type='submit' onClick={() => handleLogin("email")}>Sign in</button>
+            <button className='login__signInButton' type='submit' onClick={(e) => emailLogin(e)}>Sign in</button>
           </form>
+          <p>or</p>
+          <hr/>
+
+          <button className='login__MS' type='submit' onClick={(e) => msLogin(e)}>Microsoft</button>
+
+          <button className='logout__MS' type='submit' onClick={(e) => (e)}>Google</button>
+
+          <button className='logout__MS' type='submit' onClick={(e) => metaLogin(e)}>no Facebook</button>
+
           <p>
             By signing in you agree to Shoppy's Conditions of use & sale. Please see our Privacy Notice, ourcookies Notice, and our Internet Based Ads Notice.
           </p>
           <button className='login__registerButton' type='submit' onClick={handleRegister}>Create your account
           </button>
+          <p>Have an account?</p><p>Log in</p>
         </div>
-
 
         <div className='login-container-register'>
           <h1 className='login__text'>Sign up</h1>
@@ -246,9 +239,9 @@ function Login() {
               spellCheck='false' />
 
             <p>{email}</p>
-            <button className='login__MS' type='submit' onClick={() => handleLogin("msOAuth")}>Microsoft</button>
+            <button className='login__MS' type='submit' onClick={() => msLogin()}>Microsoft</button>
 
-            <button className='logout__MS' type='submit' onClick={() => handleLogin("ggleOAuth")}>Google</button>
+            <button className='logout__MS' type='submit' onClick={() => ggleLogin()}>Google</button>
 
             <button className='logout__MS' type='submit' onClick={() => handleLogout()}>Log out</button>
           </form>
