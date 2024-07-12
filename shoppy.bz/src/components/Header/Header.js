@@ -42,9 +42,9 @@ function Header() {
         <div className='h-topbar-App'>APP Download</div>
         <div className='h-topbar-text'>Follow us on</div>
         <div className='h-topbar-Socials'>
-          <Link to='https://www.instagram.com/'>
+          <Link to='https://www.instagram.com/shoppy.bz/' target='_blank'>
             <InstagramIcon/></Link>
-          <Link to={'https://www.facebook.com/'}>
+          <Link to={'https://www.facebook.com/profile.php?id=61561656847950'} target='_blank'>
           <FacebookIcon/></Link>
           <WhatsAppIcon/>
         </div>

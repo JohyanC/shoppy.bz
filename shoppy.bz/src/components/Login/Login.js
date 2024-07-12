@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Login.css'
 import logo from '../../assets/logo.jpeg'
 import { Link, useNavigate } from 'react-router-dom'
-import { app,  } from '../firebase'
+import { app, auth } from '../firebase'
 import { getAuth, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, OAuthProvider, signInWithRedirect, signInWithPopup, signOut, GoogleAuthProvider, getRedirectResult, FacebookAuthProvider } from "firebase/auth";
 import error from '../ErrorBoundrary/404'
 
@@ -14,16 +14,11 @@ function Login() {
   const msProvider = new OAuthProvider('microsoft.com');
   const ggleProvider = new GoogleAuthProvider();
   const metaProvider = new FacebookAuthProvider();
-  const auth = getAuth();
 
-  msProvider.setCustomParameters({
-    // Force re-consent.
-    prompt: 'login'
-  });
-
-  const emailLogin = (e) => {
+  //Email login hook
+  const emailLogin = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user
@@ -34,10 +29,10 @@ function Login() {
         const errorMessage = error.message;
       });
   }
-
+  //Facebook login hook
   const metaLogin = async (e) => {
     e.preventDefault();
-    signInWithPopup(auth, metaProvider)
+    await signInWithPopup(auth, metaProvider)
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
@@ -61,10 +56,14 @@ function Login() {
         // ...
       })
   }
-
+  //Microsoft login hook
   const msLogin = async (e) => {
     e.preventDefault();
-    signInWithPopup(auth, msProvider)
+    msProvider.setCustomParameters({
+      // Force re-consent.
+      prompt: 'login'
+    });
+    await signInWithPopup(auth, msProvider)
       .then((result) => {
         // User is signed in.
         // IdP data available in result.additionalUserInfo.profile.
@@ -81,41 +80,52 @@ function Login() {
         console.log(error)
       });
   }
-
+  //Google login hook
   const ggleLogin = async (e) => {
     e.preventDefault();
-
+    await signInWithPopup(auth, ggleProvider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
   }
-
-
-  const handleLogout = async () => {
-
+  //Logout hook
+  const handleLogout = () => {
     signOut(auth)
       .then(() => {
         alert("Sign out successful")
-        //navigate('/')
+        navigate('/')
       })
       .catch((error) => {
         console.log(error)
       });
   };
-
+  //Account creation hook
   const handleRegister = async e => {
-    e.preventDefault()
-    //Firebase implementation
-
-    createUserWithEmailAndPassword(auth, email, password)
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user
-
-
         updateProfile(user, {
           displayName: user.email.match(/^([^@]*)@/)[1],
         })
         setUsername(user.displayName)
-        window.location.href = '/';
-
+        navigate('/')
       })
       .catch((error) => {
         const errorCode = error.code
@@ -127,7 +137,6 @@ function Login() {
           alert('email already used')
       })
   };
-
 
   return (
     <div className='login'>
@@ -141,13 +150,12 @@ function Login() {
       <div className='login__container'>
         <div className='login-container-login'>
           <h1 className='login__text'>Log in</h1>
-          <form>
 
+          <form>
             <label htmlFor='email1'>Email</label>
             <input
               type='email'
               id='email1'
-              //value={email} 
               onChange={e => setEmail(e.target.value)}
               autoComplete='email'
               required={true}
@@ -158,33 +166,28 @@ function Login() {
             <input
               type='password'
               id='pwd'
-              //value={password} 
               onChange={e => setPassword(e.target.value)}
               autoComplete='password'
               required={true}
               placeholder='Password'
               spellCheck='false' />
 
-            <p>{email}</p>
-            <p>{password}</p>
-
             <button className='login__signInButton' type='submit' onClick={(e) => emailLogin(e)}>Sign in</button>
           </form>
+
+          <hr/>
           <p>or</p>
           <hr/>
 
           <button className='login__MS' type='submit' onClick={(e) => msLogin(e)}>Microsoft</button>
-
-          <button className='logout__MS' type='submit' onClick={(e) => (e)}>Google</button>
-
-          <button className='logout__MS' type='submit' onClick={(e) => metaLogin(e)}>no Facebook</button>
+          <button className='login__GGLE' type='submit' onClick={(e) => ggleLogin(e)}>Google</button>
+          {/*<button className='login__META' type='submit' onClick={(e) => metaLogin(e)}>Facebook</button>*/}
 
           <p>
-            By signing in you agree to Shoppy's Conditions of use & sale. Please see our Privacy Notice, ourcookies Notice, and our Internet Based Ads Notice.
+            By signing in you agree to Shoppy's Conditions of use & sale. Please see our Privacy Notice, our cookies Notice, and our Internet Based Ads Notice.
           </p>
-          <button className='login__registerButton' type='submit' onClick={handleRegister}>Create your account
-          </button>
-          <p>Have an account?</p><p>Log in</p>
+          
+          <p>Don't an account?</p><p>Sign up</p>
         </div>
 
         <div className='login-container-register'>
@@ -199,7 +202,6 @@ function Login() {
               required={true}
               placeholder='Username'
               spellCheck='false' />
-
 
             <label htmlFor='email'>Email</label>
             <input
@@ -237,17 +239,16 @@ function Login() {
               autoComplete='new-password'
               required={true}
               spellCheck='false' />
+            
+            <hr/>
+            <p>or</p>
+            <hr/>
 
-            <p>{email}</p>
             <button className='login__MS' type='submit' onClick={() => msLogin()}>Microsoft</button>
-
-            <button className='logout__MS' type='submit' onClick={() => ggleLogin()}>Google</button>
-
-            <button className='logout__MS' type='submit' onClick={() => handleLogout()}>Log out</button>
+            <button className='login__GGLE' type='submit' onClick={() => ggleLogin()}>Google</button>
+            <button className='logout' type='submit' onClick={() => handleLogout()}>Log out</button>
           </form>
-
         </div>
-
       </div>
     </div>
   )

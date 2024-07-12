@@ -3,33 +3,69 @@ import "./ProductInfo.css"
 import { useStateValue } from '../StateProvider'
 import { Link } from 'react-router-dom';
 //import LinesEllipsis from 'react-lines-ellipsis'
-import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, where, query, getDocs } from "firebase/firestore";
 import { useState } from 'react';
 
 
 
-function Product(id) {
-  const [state, dispatch] = useStateValue();
-  
-  const getItemInfo =  async () => {
-    const docRef = doc(db, 'inventory', id.id);
-    const docSnap =  await getDoc(docRef);
-  
+function ProductInfo(item) {
+  //console.log(item.id)
+
+  const document = async () => {
+    const docRef = doc(db, 'inventory', item.id);
+    
+    const docSnap = await getDoc(docRef);
+    
     if (docSnap.exists) {
       console.log("Document data:", docSnap.data());
+      
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
-    return docSnap;
-  
+    return docSnap.data();
+  }
+
+  const document2 = async () => {
+    
+
+    const q = query(collection(db, 'inventory'), where('price', '==', true));
+      const newRef = await getDocs(q)
+
+       
+    if (newRef.exists) {
+      //console.log("Document data:", docSnap.data());
+      newRef.forEach((doc) => {
+        console.log(doc.id, '=>', doc.data)
+      })
+      
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+
+      console.log(newRef.data)
+
+  }
+
+  const getItemRef = async () => {
+    const docRef = doc(db, 'inventory', item.id);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists) {
+      console.log("Document data:", docSnap.data());
+      
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+    return docSnap.data();
   }
 
   useEffect(() => {
-    getItemInfo();
-  });
+    //getItemRef();
+  })
   
   {/*const querySnapshot = await getDocs(collection(db, "inventory"));
   querySnapshot.forEach((doc) => {
@@ -50,21 +86,23 @@ function Product(id) {
     });
   };*/}
 
-  return (
+
+  return ( 
     <div className='product' >
       <Link to={'${title}/${id}'}>
         <div className='product__info' >
             <img
-            //src={getItemInfo.img}
+            src={getItemRef()}
             alt='product'/>
             
             <p className='product__price'>
                 <small>$</small>
-                <strong>{getItemInfo.price}</strong>
+                <strong>{}</strong>
             </p>
 
             <div className='product__rating'>
-                {Array(getItemInfo.rating).fill().map((_, i) => (<p>⭐</p>))}
+                {Array().fill().map((_, i) => (<p>⭐</p>))}
+                <p>{}</p>
             </div>
 
             {/*<LinesEllipsis
@@ -73,14 +111,15 @@ function Product(id) {
               ellipsis='...'
               trimRight
               basedOn='letters'
-  />*/}
+  /       >*/}
+            {/*<button onClick={addTocart}>Add to Cart</button>
+        </div>*/} 
             
         </div>
       
       </Link>
-            {/*<button onClick={addTocart}>Add to Cart</button>*/}
-  </div>
+    </div>
   )
 }
 
-export default Product
+export default ProductInfo
