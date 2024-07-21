@@ -1,6 +1,7 @@
 export const initialState = {
     cart: [],
-    user: null
+    user: null,
+    product:[]
 };
 
 //Selector cartTotal

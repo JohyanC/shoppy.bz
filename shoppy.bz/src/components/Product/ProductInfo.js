@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState, React } from 'react'
 import "./ProductInfo.css"
 import { useStateValue } from '../StateProvider'
 import { Link } from 'react-router-dom';
 //import LinesEllipsis from 'react-lines-ellipsis'
 import { db } from '../firebase';
 import { doc, getDoc, collection, where, query, getDocs } from "firebase/firestore";
-import { useState } from 'react';
 
 
 
 function ProductInfo(item) {
   //console.log(item.id)
+  let [{product}, setProduct] = useStateValue([]);
 
   const document = async () => {
     const docRef = doc(db, 'inventory', item.id);
@@ -65,6 +65,26 @@ function ProductInfo(item) {
 
   useEffect(() => {
     //getItemRef();
+    async function getItem() {
+      const docRef = doc(db, 'inventory', item.id);
+      const docSnap = await getDoc(docRef);
+      
+      if (docSnap.exists) {
+        console.log("Document data:", docSnap.data());
+        product = [{
+          key: docSnap.id,
+          id: docSnap.id,
+          title: docSnap.get('title'),
+          price: docSnap.get('price'),
+          rating: docSnap.get('rating')
+        }]
+        
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    }
+    getItem();
   })
   
   {/*const querySnapshot = await getDocs(collection(db, "inventory"));
@@ -97,12 +117,12 @@ function ProductInfo(item) {
             
             <p className='product__price'>
                 <small>$</small>
-                <strong>{}</strong>
+                <strong>{product.price}</strong>
             </p>
 
             <div className='product__rating'>
-                {Array().fill().map((_, i) => (<p>⭐</p>))}
-                <p>{}</p>
+                {Array(product.rating).fill().map((_, i) => (<p>⭐</p>))}
+                <p>{product.title}</p>
             </div>
 
             {/*<LinesEllipsis
