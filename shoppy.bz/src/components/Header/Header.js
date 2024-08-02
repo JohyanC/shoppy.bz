@@ -11,21 +11,12 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import logo from "../../assets/Logo/Shoppy - Transparent PNG (White).png";
 import { Link, Outlet,useNavigate } from 'react-router-dom';
 import { useStateValue } from '../StateProvider';
-import { auth } from '../firebase'
 
 function Header() {
   const [{cart, user}, dispatch] = useStateValue();
     
   const navigate = useNavigate();
 
-  const handleAuthentication = () => {
-    if (user) {
-      auth.signOut()
-      
-    alert("Sign out successful")
-    navigate('/')
-    }
-  };
 
   const accountButton = () => {
     if (!user)

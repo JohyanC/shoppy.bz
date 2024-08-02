@@ -11,14 +11,12 @@ import Orders from "./components/Orders";
 import Product from "./components/Product/Product";
 import Account from "./components/Account/Account";
 import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom"
-import { auth } from "./components/firebase";
 import { useStateValue } from "./components/StateProvider";
-import { onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [{User},dispatch] = useStateValue();
 
-  useEffect(() => {
+  /*useEffect(() => {
     //Will only run once with this component loads...
     onAuthStateChanged(auth, (user) => {
 
@@ -42,7 +40,7 @@ function App() {
         })
       }
     })
-  }, [])
+  }, [])*/
 
   return (
     // BEM

@@ -4,9 +4,7 @@ import { useStateValue } from './StateProvider'
 import CheckoutProduct from './Checkout/CheckoutProduct'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { db } from './firebase'
 import { getcartTotal } from './reducer'
-import { collection, setDoc, Timestamp } from 'firebase/firestore'
 
 function Payment() {
     const [{cart, user}, dispatch] = useStateValue();
@@ -24,19 +22,6 @@ function Payment() {
 
 
         try {
-            const docRef = await setDoc(collection(db, "users"), {
-                user: user?.uid                
-            })
-            await setDoc(collection(db, 'users', 'orders'), {
-                pid: 'ENTER PAYMENT ID HERE',
-                cart: ({
-                    cart:cart,
-                    amount: getcartTotal(cart),
-                    created: Timestamp.fromDate(new Date())
-
-                })
-            });
-            console.log("Document written with ID: ", docRef.id);
           } catch (e) {
             console.error("Error adding document: ", e);
           }
