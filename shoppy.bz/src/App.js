@@ -55,7 +55,7 @@ function App() {
             <Route path="/checkout/payment" element={<Payment/>}/>
             <Route path='orders' element={<Orders/>}/>
             <Route path='product' />
-            <Route path=':itemName/:itenId' element={<Product/>}/>
+            <Route path=':itemId' element={<Product/>}/>
             <Route path='account/userprofile' element={<Account/>}/>
           </Route>
           <Route path="login" element={<Login/>}/> 

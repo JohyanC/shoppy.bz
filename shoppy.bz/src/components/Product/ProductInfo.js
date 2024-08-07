@@ -5,49 +5,33 @@ import { Link } from 'react-router-dom';
 //import LinesEllipsis from 'react-lines-ellipsis'
 import { db } from '../firebase';
 import { doc, getDoc, collection, where, query, getDocs } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL, child, listAll } from "firebase/storage";
 
 
 
 function ProductInfo(item) {
-  //console.log(item.id)
+  console.log(item.id)
   let [{product}, setProduct] = useStateValue([]);
 
-  const document = async () => {
-    const docRef = doc(db, 'inventory', item.id);
-    
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists) {
-      console.log("Document data:", docSnap.data());
-      
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-    }
-    return docSnap.data();
-  }
+  const storage = getStorage();
+  const fileName = `products/${item.id}/`;
+  console.log(fileName);
+  
+  const productsRef = ref(storage, fileName); 
+  listAll(productsRef)
+  .then((res) => {
+    res.items.forEach((itemRef) => {
+      console.log(itemRef);
+    })
+  })
 
-  const document2 = async () => {
-    
+  getDownloadURL(productsRef).then((url) => { 
+    const img = document.getElementById('myimg');
+    img.setAttribute('src', url);
+    console.log(url);
 
-    const q = query(collection(db, 'inventory'), where('price', '==', true));
-      const newRef = await getDocs(q)
+  });
 
-       
-    if (newRef.exists) {
-      //console.log("Document data:", docSnap.data());
-      newRef.forEach((doc) => {
-        console.log(doc.id, '=>', doc.data)
-      })
-      
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-    }
-
-      console.log(newRef.data)
-
-  }
 
   const getItemRef = async () => {
     const docRef = doc(db, 'inventory', item.id);
@@ -64,27 +48,7 @@ function ProductInfo(item) {
   }
 
   useEffect(() => {
-    //getItemRef();
-    async function getItem() {
-      const docRef = doc(db, 'inventory', item.id);
-      const docSnap = await getDoc(docRef);
-      
-      if (docSnap.exists) {
-        console.log("Document data:", docSnap.data());
-        product = [{
-          key: docSnap.id,
-          id: docSnap.id,
-          title: docSnap.get('title'),
-          price: docSnap.get('price'),
-          rating: docSnap.get('rating')
-        }]
-        
-      } else {
-        // docSnap.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    }
-    getItem();
+    getItemRef();
   })
   
   {/*const querySnapshot = await getDocs(collection(db, "inventory"));
@@ -109,10 +73,10 @@ function ProductInfo(item) {
 
   return ( 
     <div className='product' >
-      <Link to={'${title}/${id}'}>
+      <Link to={`${item.id}`}>
         <div className='product__info' >
             <img
-            src={getItemRef()}
+            id='myimg'
             alt='product'/>
             
             <p className='product__price'>
